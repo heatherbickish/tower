@@ -23,3 +23,7 @@ TowerEventSchema.virtual('creator', {
   foreignField: '_id',
   justOne: true
 })
+
+// TowerEventSchema.virtual('ticketCount'{
+//   l
+// })

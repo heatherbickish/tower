@@ -1,6 +1,8 @@
 import { dbContext } from "../db/DbContext"
+import { Forbidden } from "../utils/Errors"
 
 class TowerEventsService {
+
   async createEvent(eventData) {
     const event = await dbContext.TowerEvents.create(eventData)
     await event.populate('creator')
@@ -15,6 +17,17 @@ class TowerEventsService {
   async getEventById(eventId) {
     const event = await dbContext.TowerEvents.findById(eventId).populate('creator')
     return event
+  }
+
+  async editEvent(eventId, updataData, userInfo) {
+    const originalEvent = await dbContext.TowerEvents.findById(eventId)
+    if (!originalEvent) { throw new Error(`Nope ${eventId}`) }
+    if (userInfo != originalEvent.creatorId) { throw new Forbidden('That aint yours brah') }
+    if (updataData.description) originalEvent.description = updataData.description
+    originalEvent.name = updataData.name || originalEvent.name
+
+    await originalEvent.save()
+    return originalEvent
   }
 }
 export const towerEventsService = new TowerEventsService()
