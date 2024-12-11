@@ -15,9 +15,9 @@ const activeFilterType = ref('all')
 
 const types = [
   { name: 'all', icon: 'mdi mdi-all-inclusive text-success' },
-  { name: 'concerts', icon: 'mdi mdi-guitar-electric text-purple' },
-  { name: 'conventions', icon: 'mdi mdi-account-group text-secondary' },
-  { name: 'sports', icon: 'mdi mdi-soccer text-primary' },
+  { name: 'concert', icon: 'mdi mdi-guitar-electric text-purple' },
+  { name: 'convention', icon: 'mdi mdi-account-group text-secondary' },
+  { name: 'sport', icon: 'mdi mdi-soccer text-primary' },
   { name: 'digital', icon: 'mdi mdi-television-shimmer text-danger' }
 ]
 
