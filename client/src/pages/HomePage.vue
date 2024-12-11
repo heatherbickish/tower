@@ -4,9 +4,22 @@ import EventCard from "@/components/EventCard.vue";
 import { towerEventsService } from "@/services/TowerEventsService";
 import { logger } from "@/utils/Logger";
 import Pop from "@/utils/Pop";
-import { computed, onMounted } from "vue";
+import { computed, onMounted, ref } from "vue";
 
-const towerEvents = computed(() => AppState.towerEvents)
+const towerEvents = computed(() => {
+  if (activeFilterType.value == 'all') return AppState.towerEvents
+  return AppState.towerEvents.filter(towerEvent => towerEvent.type == activeFilterType.value)
+})
+
+const activeFilterType = ref('all')
+
+const type = [
+  { name: 'all', icon: 'mdi mdi-all-inclusive text-success' },
+  { name: 'concerts', icon: 'mdi mdi-guitar-electric' },
+  { name: 'conventions', icon: 'mdi mdi-account-group' },
+  { name: 'sports', icon: 'mdi mdi-soccer' },
+  { name: 'digital', icon: 'mdi mdi-television-shimmer' }
+]
 
 onMounted(() => {
   getEvents()
@@ -66,11 +79,11 @@ async function getEvents() {
         <div class="m-5 px-3">
           <h4>Explore top categories</h4>
         </div>
-        <div class="row justify-content-center">
-          <div class="col-md-1 bg-light">
-            <div class="text-center py-2">
-              <i class="mdi mdi-all-inclusive text-success"></i>
-              <h6>All</h6>
+        <div class="row justify-content-around">
+          <div v-for="type in type" :key="'filter-' + type.name" class="col-md-2 bg-light text-capitalize">
+            <div @click="activeFilterType = type.name" role="button" class="text-center py-2">
+              <i :class="type.icon"></i>
+              <h6>{{ type.name }}</h6>
             </div>
           </div>
         </div>
@@ -84,10 +97,10 @@ async function getEvents() {
           <h4>Upcoming events</h4>
         </div>
       </div>
-      <div class="row justify-content-center">
-        <div v-for="towerEvent in towerEvents" :key="towerEvent.id" class="col-4">
-          <EventCard :towerEvent="towerEvent" />
-        </div>
+    </div>
+    <div class="row justify-content-center">
+      <div v-for="towerEvent in towerEvents" :key="towerEvent.id" class="col-4">
+        <EventCard :towerEvent="towerEvent" />
       </div>
     </div>
   </section>

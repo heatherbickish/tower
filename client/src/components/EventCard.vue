@@ -23,9 +23,7 @@ defineProps({
 <style lang="scss" scoped>
 .cover-img {
   min-height: 30dvh;
-  background-size: cover;
-  background-position: center;
-
+  width: 100%;
 
 }
 </style>
