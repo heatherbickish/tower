@@ -70,8 +70,6 @@ async function getEventById() {
 .hero {
   height: 400px;
   width: 100%;
-  background-size: cover;
-  background-position: center;
   border-radius: 15px;
 }
 </style>

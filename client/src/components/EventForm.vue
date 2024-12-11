@@ -9,6 +9,7 @@ import { useRouter } from "vue-router";
 
 const type = ['concert', 'convention', 'sport', 'digital']
 const router = useRouter()
+const towerEvent = computed(() => AppState.towerEvents)
 
 const editableEventData = ref({
   name: '',
@@ -22,7 +23,8 @@ const editableEventData = ref({
 
 async function createEvent() {
   try {
-    await towerEventsService.createEvent(editableEventData.value)
+    const towerEvent = await towerEventsService.createEvent(editableEventData.value)
+
     editableEventData.value = {
       name: '',
       location: '',
@@ -32,8 +34,8 @@ async function createEvent() {
       capacity: '',
       description: ''
     }
-    // Modal.getInstance('#eventModal').hide()
-    // router.push({ name: 'Event Details', params: { eventId: towerEvent.id } })
+    Modal.getInstance('#eventModal').hide()
+    router.push({ name: 'Event Details', params: { eventId: towerEvent.id } })
   }
   catch (error) {
     Pop.meow(error);

@@ -13,12 +13,12 @@ const towerEvents = computed(() => {
 
 const activeFilterType = ref('all')
 
-const type = [
+const types = [
   { name: 'all', icon: 'mdi mdi-all-inclusive text-success' },
-  { name: 'concerts', icon: 'mdi mdi-guitar-electric' },
-  { name: 'conventions', icon: 'mdi mdi-account-group' },
-  { name: 'sports', icon: 'mdi mdi-soccer' },
-  { name: 'digital', icon: 'mdi mdi-television-shimmer' }
+  { name: 'concerts', icon: 'mdi mdi-guitar-electric text-purple' },
+  { name: 'conventions', icon: 'mdi mdi-account-group text-secondary' },
+  { name: 'sports', icon: 'mdi mdi-soccer text-primary' },
+  { name: 'digital', icon: 'mdi mdi-television-shimmer text-danger' }
 ]
 
 onMounted(() => {
@@ -80,7 +80,7 @@ async function getEvents() {
           <h4>Explore top categories</h4>
         </div>
         <div class="row justify-content-around">
-          <div v-for="type in type" :key="'filter-' + type.name" class="col-md-2 bg-light text-capitalize">
+          <div v-for="type in types" :key="'filter-' + type.name" class="col-md-2 bg-light text-capitalize">
             <div @click="activeFilterType = type.name" role="button" class="text-center py-2">
               <i :class="type.icon"></i>
               <h6>{{ type.name }}</h6>

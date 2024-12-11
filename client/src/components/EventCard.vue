@@ -13,10 +13,10 @@ defineProps({
       <img :src="towerEvent.coverImg" alt="" class="cover-img">
     </router-link>
   </div>
-  <p>{{ towerEvent.name }}</p>
-  <small>
-    {{ towerEvent.location }}
-  </small>
+  <div class="ms-3 mb-4 ">
+    <p class="mb-0">{{ towerEvent.name }}</p>
+    <small>{{ towerEvent.location }}</small>
+  </div>
 </template>
 
 

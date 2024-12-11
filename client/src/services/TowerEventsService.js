@@ -6,20 +6,21 @@ import { AppState } from "@/AppState.js"
 class TowerEventsService {
   async createEvent(eventData) {
     const response = await api.post('api/events', eventData)
-    logger.lof('created event!', response.data)
+    logger.log('created event!', response.data)
+    const towerEvent = new TowerEvent(response.data)
+    AppState.towerEvents.push(towerEvent)
+    return towerEvent
   }
   async getEventById(eventId) {
     AppState.activeEvent = null
     const response = await api.get(`api/events/${eventId}`)
     const events = new TowerEvent(response.data)
     AppState.activeEvent = events
-    logger.log(events)
   }
   async getEvents() {
     const response = await api.get('api/events')
     const events = response.data.map(eventPojo => new TowerEvent(eventPojo))
     AppState.towerEvents = events
-    logger.log(events)
   }
 
 }
