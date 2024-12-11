@@ -52,7 +52,7 @@ async function getEvents() {
         </div>
       </div>
       <div class="col-md-4 bg-light">
-        <div class="p-3">
+        <div class="p-3" role="button" type="submit" data-bs-toggle="modal" data-bs-target="#eventModal">
           <i class="mdi mdi-plus text-success fs-4 me-3"></i>
           <h5>Discover events you're interested in</h5>
           <small>Create your own Tower event, and draw from a community of millions</small>

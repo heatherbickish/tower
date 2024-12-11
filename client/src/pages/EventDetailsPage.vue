@@ -56,7 +56,11 @@ async function getEventById() {
         </div>
       </div>
     </div>
+    <div class="ms-5 mt-5 px-5">
+      <h6>See what folks are saying...</h6>
+    </div>
   </section>
+
 </template>
 
 
