@@ -9,7 +9,9 @@ defineProps({
 
 <template>
   <div class="mx-3">
-    <img :src="towerEvent.coverImg" alt="" class="cover-img">
+    <router-link :to="{ name: 'Event Details', params: { eventId: towerEvent.id } }">
+      <img :src="towerEvent.coverImg" alt="" class="cover-img">
+    </router-link>
   </div>
   <p>{{ towerEvent.name }}</p>
   <small>
