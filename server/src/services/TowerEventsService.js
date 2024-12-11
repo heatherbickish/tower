@@ -7,16 +7,17 @@ class TowerEventsService {
   async createEvent(eventData) {
     const event = await dbContext.TowerEvents.create(eventData)
     await event.populate('creator')
+    // await event.populate('ticketCount')
     return event
   }
 
   async getAllEvents() {
-    const event = await dbContext.TowerEvents.find().populate('creator')
+    const event = await dbContext.TowerEvents.find().populate('creator').populate('ticketCount')
     return event
   }
 
   async getEventById(eventId) {
-    const event = await dbContext.TowerEvents.findById(eventId).populate('creator')
+    const event = await dbContext.TowerEvents.findById(eventId).populate('creator').populate('ticketCount')
     return event
   }
 

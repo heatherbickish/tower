@@ -8,7 +8,7 @@ class DbContext {
 
   TowerEvents = mongoose.model('TowerEvent', TowerEventSchema);
 
-  Tickets = mongoose.model('Tickets', TicketSchema);
+  Tickets = mongoose.model('Ticket', TicketSchema);
 }
 
 export const dbContext = new DbContext()
