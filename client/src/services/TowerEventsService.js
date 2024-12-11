@@ -5,6 +5,7 @@ import { AppState } from "@/AppState.js"
 
 class TowerEventsService {
   async getEventById(eventId) {
+    AppState.activeEvent = null
     const response = await api.get(`api/events/${eventId}`)
     const events = new TowerEvent(response.data)
     AppState.activeEvent = events

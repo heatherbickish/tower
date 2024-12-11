@@ -24,7 +24,7 @@ async function getEvents() {
 </script>
 
 <template>
-  <section class="container">
+  <section class="container-fluid">
     <div class="row hero">
       <div class="col-md-6">
         <div class="d-flex justify-content-end flex-column flex-end text-light p-4 ms-4 lh-2">
@@ -95,7 +95,7 @@ async function getEvents() {
 
 <style scoped lang="scss">
 .hero {
-  background-image: url(https://images.unsplash.com/photo-1467810563316-b5476525c0f9?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjR8fHBhcnR5fGVufDB8fDB8fHwy);
+  background-image: url(https://images.unsplash.com/photo-1467810563316-b5476525c0f9?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);
   height: 500px;
   width: auto;
   background-size: cover;
