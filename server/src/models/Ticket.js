@@ -16,7 +16,7 @@ TicketSchema.virtual('profile', {
   justOne: true
 })
 
-TicketSchema.virtual('towerEvent', {
+TicketSchema.virtual('event', {
   localField: 'eventId',
   ref: 'TowerEvent',
   foreignField: '_id',
