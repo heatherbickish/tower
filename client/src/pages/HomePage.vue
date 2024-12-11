@@ -6,6 +6,8 @@ import { logger } from "@/utils/Logger";
 import Pop from "@/utils/Pop";
 import { computed, onMounted, ref } from "vue";
 
+const account = computed(() => AppState.account)
+
 const towerEvents = computed(() => {
   if (activeFilterType.value == 'all') return AppState.towerEvents
   return AppState.towerEvents.filter(towerEvent => towerEvent.type == activeFilterType.value)
@@ -64,10 +66,10 @@ async function getEvents() {
           <small>Browse through community hosted events for all the things you love</small>
         </div>
       </div>
-      <div class="col-md-4 bg-light">
+      <div v-if="account" class="col-md-4 bg-light">
         <div class="p-3" role="button" type="submit" data-bs-toggle="modal" data-bs-target="#eventModal">
           <i class="mdi mdi-plus text-success fs-4 me-3"></i>
-          <h5>Discover events you're interested in</h5>
+          <h5>Start an event to invite your friends</h5>
           <small>Create your own Tower event, and draw from a community of millions</small>
         </div>
       </div>
