@@ -1,6 +1,7 @@
 <script setup>
 import { AppState } from "@/AppState";
 import { ticketsService } from "@/services/TicketsService";
+import { towerCommentsService } from "@/services/TowerCommentsService";
 import { towerEventsService } from "@/services/TowerEventsService";
 import { logger } from "@/utils/Logger";
 import Pop from "@/utils/Pop";
@@ -16,7 +17,20 @@ const hasTickets = computed(() => ticketProfiles.value.some(ticketProfile => tic
 watch(route, () => {
   getEventById()
   getTicketProfileByEventId()
+  getCommentByEventId()
 }, { immediate: true })
+
+
+async function getCommentByEventId() {
+  try {
+    const eventId = route.params.eventId
+    await towerCommentsService.getCommentByEventId(eventId)
+  }
+  catch (error) {
+    Pop.meow(error);
+    logger.log('[GETTING COMMENT BY EVENT ID]', error)
+  }
+}
 
 async function getTicketProfileByEventId() {
   try {
