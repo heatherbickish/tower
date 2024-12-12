@@ -1,5 +1,6 @@
 <script setup>
 import { AppState } from "@/AppState";
+import { ticketsService } from "@/services/TicketsService";
 import { towerEventsService } from "@/services/TowerEventsService";
 import { logger } from "@/utils/Logger";
 import Pop from "@/utils/Pop";
@@ -9,6 +10,7 @@ import { useRoute } from "vue-router";
 const route = useRoute()
 const towerEvent = computed(() => AppState.activeEvent)
 const account = computed(() => AppState.account)
+const ticketProfiles = computed(() => AppState.ticketProfiles)
 
 onMounted(() => {
   getEventById()
@@ -35,6 +37,17 @@ async function cancelEvent() {
   catch (error) {
     Pop.meow(error);
     logger.error('[CANCELLING EVENT]', error)
+  }
+}
+
+async function createTicket() {
+  try {
+    const eventData = { eventId: route.params.eventId }
+    await ticketsService.createTicket(eventData)
+  }
+  catch (error) {
+    Pop.meow(error);
+    logger.error('[CREATING TICKET]', error)
   }
 }
 </script>
@@ -89,14 +102,17 @@ async function cancelEvent() {
             <small>Grab a ticket!</small>
           </div>
           <div class="text-center mt-3">
-            <button class="btn btn-primary">Attend</button>
+            <button @click="createTicket()" class="btn btn-primary">Attend</button>
           </div>
           <div class="text-end mt-2">
             <p>spots left</p>
           </div>
           <div class="mt-4">
-            <span>Attendees</span>
-            <img src="" alt="">
+            <h6>Attendees</h6>
+            <div v-for="ticketProfile in ticketProfiles" :key="ticketProfile.id">
+              <img :src="ticketProfile.profile.picture" :alt="ticketProfile.profile.name" class="creator-img">
+              <span class="ms-2">{{ ticketProfile.profile.name }}</span>
+            </div>
           </div>
         </div>
       </div>
@@ -120,5 +136,6 @@ async function cancelEvent() {
 
 .creator-img {
   height: 2rem;
+  border-radius: 50%;
 }
 </style>
