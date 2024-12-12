@@ -1,8 +1,25 @@
 <script setup>
-import { computed } from 'vue';
+import { computed, onMounted } from 'vue';
 import { AppState } from '../AppState.js';
+import Pop from "@/utils/Pop.js";
+import { logger } from "@/utils/Logger.js";
+import { ticketsService } from "@/services/TicketsService.js";
 
 const account = computed(() => AppState.account)
+const ticketEvents = computed(() => AppState.ticketEvents)
+
+onMounted(() => {
+  getMyTicketEvents()
+})
+
+async function getMyTicketEvents() {
+  try {
+    await ticketsService.getMyTicketEvents()
+  } catch (error) {
+    Pop.meow(error)
+    logger.error('[GETTING MY TICKET EVENTS]', error)
+  }
+}
 
 </script>
 
@@ -16,9 +33,8 @@ const account = computed(() => AppState.account)
               <img :src="account.picture" :alt="account.name" class="creator-img">
               <span class="ms-4 me-4 fs-1">{{ account.name }}</span>
               <span class="ms-5">events</span>
-              <span class="ms-5">tickets</span>
+              <span class="ms-5">{{ ticketEvents.length }} tickets</span>
             </div>
-
           </div>
           <div class="row mt-5">
             <div class="col-12 ms-5">
@@ -27,9 +43,17 @@ const account = computed(() => AppState.account)
               </div>
             </div>
           </div>
-          <div class="row">
-            <div class="col-12">
-              <!-- <EventCard /> -->
+          <div class="row justify-content-center">
+            <div v-for="ticketEvent in ticketEvents" :key="ticketEvent.id" class="col-md-4">
+              <div class="m-3">
+                <img :src="ticketEvent.towerEvent.coverImg" :alt="ticketEvent.towerEvent.name" class="cover-img ms-5">
+                <div>
+                  <small class="ms-5">{{ ticketEvent.towerEvent.name }}</small>
+                  <small class="bg-info rounded ms-2 px-2">Unattend</small>
+                </div>
+              </div>
+              <div>
+              </div>
             </div>
           </div>
         </section>
@@ -46,5 +70,12 @@ const account = computed(() => AppState.account)
 .creator-img {
   height: 8rem;
   border-radius: 50%;
+}
+
+.cover-img {
+  height: 25dvh;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 15px;
 }
 </style>

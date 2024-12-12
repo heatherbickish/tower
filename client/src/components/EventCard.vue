@@ -25,5 +25,6 @@ defineProps({
   height: 25dvh;
   width: 100%;
   object-fit: cover;
+  border-radius: 15px;
 }
 </style>

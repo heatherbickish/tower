@@ -78,7 +78,8 @@ async function createTicket() {
                 class="px-2 rounded bg-danger">Is Cancelled</span>
             </div>
             <div class="text-start">
-              <span v-if="hasTickets" title="`You have purchased a ticket for ${towerEvent.name}`"
+              <span v-if="hasTickets || towerEvent.isCanceled"
+                title="`You have purchased a ticket for ${towerEvent.name}`"
                 class="px-2 rounded bg-primary">Attending</span>
             </div>
           </div>

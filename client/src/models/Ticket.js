@@ -6,7 +6,7 @@ export class Ticket {
     this.id = data.id
     this.accountId = data.accountId
     this.eventId = data.eventId
-    this.towerEvent = data.towerEvent ? new TowerEvent(data.towerEvent) : null
+    this.towerEvent = data.event ? new TowerEvent(data.event) : null
     this.profile = data.profile ? new Account(data.profile) : null
 
   }
