@@ -7,6 +7,7 @@ import { ticketsService } from "@/services/TicketsService.js";
 
 const account = computed(() => AppState.account)
 const ticketEvents = computed(() => AppState.ticketEvents)
+const towerEvents = computed(() => AppState.towerEvents)
 
 onMounted(() => {
   getMyTicketEvents()
@@ -44,7 +45,6 @@ async function deleteTicket(ticketId) {
             <div class="p-5 ms-5">
               <img :src="account.picture" :alt="account.name" class="creator-img">
               <span class="ms-4 me-4 fs-1">{{ account.name }}</span>
-              <span class="ms-5">events</span>
               <span class="ms-5">{{ ticketEvents.length }} tickets</span>
             </div>
           </div>
@@ -58,6 +58,9 @@ async function deleteTicket(ticketId) {
           <div class="row justify-content-center">
             <div v-for="ticketEvent in ticketEvents" :key="ticketEvent.id" class="col-md-4">
               <div class="m-3">
+
+                <!-- <router-link :to="{ name: 'Event Details', params:{eventId: towerEvents.} }">
+                </router-link> -->
                 <img :src="ticketEvent.towerEvent.coverImg" :alt="ticketEvent.towerEvent.name" class="cover-img ms-5">
                 <div>
                   <small class="ms-5">{{ ticketEvent.towerEvent.name }}</small>

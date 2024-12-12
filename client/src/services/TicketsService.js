@@ -6,7 +6,6 @@ import { AppState } from "@/AppState.js"
 class TicketsService {
   async deleteTicket(ticketId) {
     const response = await api.delete(`api/tickets/${ticketId}`)
-    logger.log('deleted ticket', response.data)
     const ticketIndex = AppState.ticketEvents.findIndex(ticket => ticket.id == ticketId)
     AppState.ticketEvents.splice(ticketIndex, 1)
   }

@@ -4,7 +4,7 @@ import { ticketsService } from "@/services/TicketsService";
 import { towerEventsService } from "@/services/TowerEventsService";
 import { logger } from "@/utils/Logger";
 import Pop from "@/utils/Pop";
-import { computed, onMounted, watch } from "vue";
+import { computed, watch } from "vue";
 import { useRoute } from "vue-router";
 
 const route = useRoute()
@@ -78,7 +78,11 @@ async function createTicket() {
                 class="px-2 rounded bg-danger">Is Cancelled</span>
             </div>
             <div class="text-start">
-              <span v-if="hasTickets || towerEvent.isCanceled"
+              <span v-if="hasTickets" title="`You have purchased a ticket for ${towerEvent.name}`"
+                class="px-2 rounded bg-primary">Attending</span>
+            </div>
+            <div class="text-center">
+              <span v-if="towerEvent.capacity - towerEvent.ticketCount == 0"
                 title="`You have purchased a ticket for ${towerEvent.name}`"
                 class="px-2 rounded bg-primary">Attending</span>
             </div>
@@ -122,7 +126,7 @@ async function createTicket() {
             <button @click="createTicket()" :disabled="towerEvent.isCanceled" class="btn btn-primary">Attend</button>
           </div>
           <div class="text-end mt-2">
-            <p>spots left</p>
+            <p>{{ towerEvent.capacity - towerEvent.ticketCount }} spots left</p>
           </div>
           <div class="mt-4">
             <h6>Attendees</h6>
