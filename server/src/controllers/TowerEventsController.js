@@ -64,7 +64,8 @@ export class TowerEventsController extends BaseController {
   async cancelEvent(request, response, next) {
     try {
       const eventId = request.params.eventId
-      const event = await towerEventsService.cancelEvent(eventId)
+      const userId = request.userInfo.id
+      const event = await towerEventsService.cancelEvent(eventId, userId)
       response.send(event)
     } catch (error) {
       next(error)

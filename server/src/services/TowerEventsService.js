@@ -23,9 +23,11 @@ class TowerEventsService {
 
   async editEvent(eventId, updataData, userInfo) {
     const originalEvent = await dbContext.TowerEvents.findById(eventId)
+    if (originalEvent.isCanceled) { throw new Error("You can't edit an event that has been cancelled") }
     if (!originalEvent) { throw new Error(`Nope ${eventId}`) }
     if (userInfo != originalEvent.creatorId) { throw new Forbidden('That aint yours brah') }
     if (updataData.description)
+
       originalEvent.description = updataData.description
     originalEvent.name = updataData.name || originalEvent.name
 
@@ -33,9 +35,13 @@ class TowerEventsService {
     return originalEvent
   }
 
-  async cancelEvent(eventId) {
+  async cancelEvent(eventId, userId) {
     const eventToCancel = await this.getEventById(eventId)
+
+    if (eventToCancel == null) { throw new Error(`Invalid event id ${eventId}`) }
+    if (eventToCancel.creatorId != userId) { throw new Forbidden('CAUGHT YA BEING NAUGHTY') }
     eventToCancel.isCanceled = !eventToCancel.isCanceled
+
     await eventToCancel.save()
     return eventToCancel
   }
