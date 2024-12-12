@@ -117,4 +117,8 @@ async function cancelEvent() {
   border-radius: 15px;
   object-fit: cover;
 }
+
+.creator-img {
+  height: 2rem;
+}
 </style>
