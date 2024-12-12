@@ -5,7 +5,7 @@ import { towerCommentsService } from "@/services/TowerCommentsService";
 import { towerEventsService } from "@/services/TowerEventsService";
 import { logger } from "@/utils/Logger";
 import Pop from "@/utils/Pop";
-import { computed, watch } from "vue";
+import { computed, ref, watch } from "vue";
 import { useRoute } from "vue-router";
 
 const route = useRoute()
@@ -13,6 +13,7 @@ const towerEvent = computed(() => AppState.activeEvent)
 const account = computed(() => AppState.account)
 const ticketProfiles = computed(() => AppState.ticketProfiles)
 const hasTickets = computed(() => ticketProfiles.value.some(ticketProfile => ticketProfile.accountId == account.value?.id))
+const comments = computed(() => AppState.towerComments)
 
 watch(route, () => {
   getEventById()
@@ -20,6 +21,21 @@ watch(route, () => {
   getCommentByEventId()
 }, { immediate: true })
 
+const editableCommentData = ref({
+  body: '',
+  eventId: route.params.eventId
+})
+
+async function createComment() {
+  try {
+    await towerCommentsService.createComment(editableCommentData.value)
+    editableCommentData.value.body = ''
+  }
+  catch (error) {
+    Pop.meow(error)
+    logger.error('[CREATING COMMENT]', error)
+  }
+}
 
 async function getCommentByEventId() {
   try {
@@ -153,8 +169,32 @@ async function createTicket() {
           </div>
         </div>
       </div>
+
+      <!-- SECTION comments -->
       <div class="ms-5 mt-5 px-5">
-        <h6>See what folks are saying...</h6>
+        <h6 class="mb-5">See what folks are saying...</h6>
+        <div class="row">
+          <div class="col-md-7 bg-light">
+            <div class="text-end mt-3 p-3">
+              <p class="text-success">Join the conversation</p>
+              <form @submit.prevent="createComment()">
+                <div class="mb-3">
+                  <label for="exampleFormControlTextarea1" class="form-label"></label>
+                  <textarea v-model="editableCommentData.body" class="form-control" id="body" rows="3" maxlength="1000"
+                    required></textarea>
+                </div>
+                <div class="text-end">
+                  <button class="btn btn-success">Post Comment</button>
+                </div>
+              </form>
+            </div>
+            <div v-for="comment in comments" :key="comment.id" class="shadow m-3">
+              <img :src="comment.creator.picture" :alt="comment.creator.name" class="creator-img m-2">
+              <span>{{ comment.creator.name }}</span>
+              <p class="ms-3">{{ comment.body }}</p>
+            </div>
+          </div>
+        </div>
       </div>
 
     </section>
