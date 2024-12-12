@@ -4,17 +4,29 @@ import { ticketsService } from "@/services/TicketsService";
 import { towerEventsService } from "@/services/TowerEventsService";
 import { logger } from "@/utils/Logger";
 import Pop from "@/utils/Pop";
-import { computed, onMounted } from "vue";
+import { computed, onMounted, watch } from "vue";
 import { useRoute } from "vue-router";
 
 const route = useRoute()
 const towerEvent = computed(() => AppState.activeEvent)
 const account = computed(() => AppState.account)
 const ticketProfiles = computed(() => AppState.ticketProfiles)
+const hasTickets = computed(() => ticketProfiles.value.some(ticketProfile => ticketProfile.accountId == account.value?.id))
 
-onMounted(() => {
+watch(route, () => {
   getEventById()
-})
+  getTicketProfileByEventId()
+}, { immediate: true })
+
+async function getTicketProfileByEventId() {
+  try {
+    const eventId = route.params.eventId
+    await ticketsService.getTicketProfileByEventId(eventId)
+  } catch (error) {
+    Pop.meow(error)
+    logger.error('[GETTING TICKET PROFILES]', error)
+  }
+}
 
 async function getEventById() {
   try {
@@ -65,6 +77,10 @@ async function createTicket() {
               <span v-if="towerEvent.isCanceled" title="`${towerEvent.name} has been cancelled`"
                 class="px-2 rounded bg-danger">Is Cancelled</span>
             </div>
+            <div class="text-start">
+              <span v-if="hasTickets" title="`You have purchased a ticket for ${towerEvent.name}`"
+                class="px-2 rounded bg-primary">Attending</span>
+            </div>
           </div>
         </div>
       </div>
@@ -102,7 +118,7 @@ async function createTicket() {
             <small>Grab a ticket!</small>
           </div>
           <div class="text-center mt-3">
-            <button @click="createTicket()" class="btn btn-primary">Attend</button>
+            <button @click="createTicket()" :disabled="towerEvent.isCanceled" class="btn btn-primary">Attend</button>
           </div>
           <div class="text-end mt-2">
             <p>spots left</p>
@@ -110,7 +126,7 @@ async function createTicket() {
           <div class="mt-4">
             <h6>Attendees</h6>
             <div v-for="ticketProfile in ticketProfiles" :key="ticketProfile.id">
-              <img :src="ticketProfile.profile.picture" :alt="ticketProfile.profile.name" class="creator-img">
+              <img :src="ticketProfile.profile.picture" :alt="ticketProfile.profile.name" class="creator-img mb-2">
               <span class="ms-2">{{ ticketProfile.profile.name }}</span>
             </div>
           </div>
