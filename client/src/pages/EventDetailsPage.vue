@@ -192,11 +192,13 @@ async function createTicket() {
               <img :src="comment.creator.picture" :alt="comment.creator.name" class="creator-img m-2">
               <span>{{ comment.creator.name }}</span>
               <p class="ms-3">{{ comment.body }}</p>
+              <div class="text-end m-2">
+                <button v-if="comment.creatorId == account?.id" class="btn btn-danger">Delete Post</button>
+              </div>
             </div>
           </div>
         </div>
       </div>
-
     </section>
   </div>
 
