@@ -101,7 +101,7 @@ async function getEvents() {
       </div>
     </div>
     <div class="row justify-content-center">
-      <div v-for="towerEvent in towerEvents" :key="towerEvent.id" class="col-4">
+      <div v-for="towerEvent in towerEvents" :key="towerEvent.id" class="col-md-4">
         <EventCard :towerEvent="towerEvent" />
       </div>
     </div>

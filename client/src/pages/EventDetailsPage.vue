@@ -8,6 +8,7 @@ import { useRoute } from "vue-router";
 
 const route = useRoute()
 const towerEvent = computed(() => AppState.activeEvent)
+const account = computed(() => AppState.account)
 
 onMounted(() => {
   getEventById()
@@ -23,26 +24,50 @@ async function getEventById() {
     logger.error('[GETTING EVENT BY ID]', error)
   }
 }
+
+async function cancelEvent() {
+  try {
+    const yes = await Pop.confirm(`Are you sure want to cancel ${towerEvent.value.name} event?`, "It's a pretty cool event", "Yes I am sure!")
+    if (!yes) return
+    const eventId = route.params.eventId
+    await towerEventsService.cancelEvent(eventId)
+  }
+  catch (error) {
+    Pop.meow(error);
+    logger.error('[CANCELLING EVENT]', error)
+  }
+}
 </script>
 
 
 <template>
+  <!-- SECTION event img -->
   <div v-if="towerEvent">
     <section class="container">
       <div class="row justify-content-center">
         <div class="col-md-10">
-          <div class="mt-3 ">
+          <div :style="{ backgroundImage: `url(${towerEvent.coverImg})` }" class="mt-3 ">
             <img :src="towerEvent.coverImg" alt="" class="hero">
+            <div class="text-end ">
+              <span v-if="towerEvent.isCanceled" title="`${towerEvent.name} has been cancelled`"
+                class="px-2 rounded bg-danger">Is Cancelled</span>
+            </div>
           </div>
         </div>
       </div>
     </section>
+
+    <!-- SECTION event details -->
     <section class="container">
-      <div class="row">
+      <div class="row justify-content-between">
         <div class="col-md-7">
           <div class=" d-flex justify-content-around align-items-center m-5">
             <span class="fs-3 ms-4">{{ towerEvent.name }}</span>
             <span class="bg-info rounded-pill px-3">{{ towerEvent.type }}</span>
+          </div>
+          <div class="text-center mb-3">
+            <button v-if="towerEvent.creatorId == account?.id" @click="cancelEvent()" class="btn btn-danger">Cancel
+              Event</button>
           </div>
           <div class="ms-5 px-5">
             <p>{{ towerEvent.description }}</p>
@@ -56,10 +81,29 @@ async function getEventById() {
             <span>{{ towerEvent.location }}</span>
           </div>
         </div>
+
+        <!-- SECTION tickets and attendees -->
+        <div class="col-md-2 bg-light m-5">
+          <div class="text-center mt-3">
+            <h6>Interested in going?</h6>
+            <small>Grab a ticket!</small>
+          </div>
+          <div class="text-center mt-3">
+            <button class="btn btn-primary">Attend</button>
+          </div>
+          <div class="text-end mt-2">
+            <p>spots left</p>
+          </div>
+          <div class="mt-4">
+            <span>Attendees</span>
+            <img src="" alt="">
+          </div>
+        </div>
       </div>
       <div class="ms-5 mt-5 px-5">
         <h6>See what folks are saying...</h6>
       </div>
+
     </section>
   </div>
 
@@ -71,5 +115,6 @@ async function getEventById() {
   height: 400px;
   width: 100%;
   border-radius: 15px;
+  object-fit: cover;
 }
 </style>

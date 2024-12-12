@@ -22,8 +22,8 @@ defineProps({
 
 <style lang="scss" scoped>
 .cover-img {
-  min-height: 25dvh;
+  height: 25dvh;
   width: 100%;
-
+  object-fit: cover;
 }
 </style>

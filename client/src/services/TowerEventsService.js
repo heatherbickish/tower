@@ -4,6 +4,7 @@ import { TowerEvent } from "@/models/TowerEvent.js"
 import { AppState } from "@/AppState.js"
 
 class TowerEventsService {
+
   async createEvent(eventData) {
     const response = await api.post('api/events', eventData)
     logger.log('created event!', response.data)
@@ -23,5 +24,9 @@ class TowerEventsService {
     AppState.towerEvents = events
   }
 
+  async cancelEvent(eventId) {
+    const response = await api.delete(`api/events/${eventId}`)
+    logger.log('canceled event', response.data)
+  }
 }
 export const towerEventsService = new TowerEventsService()
