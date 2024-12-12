@@ -26,6 +26,7 @@ class TicketsService {
     const response = await api.post('api/tickets', eventData)
     const ticket = new Ticket(response.data)
     AppState.ticketProfiles.push(ticket)
+    AppState.activeEvent.ticketCount += 1
   }
 
 }

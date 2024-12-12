@@ -59,9 +59,9 @@ async function deleteTicket(ticketId) {
             <div v-for="ticketEvent in ticketEvents" :key="ticketEvent.id" class="col-md-4">
               <div class="m-3">
 
-                <!-- <router-link :to="{ name: 'Event Details', params:{eventId: towerEvents.} }">
-                </router-link> -->
-                <img :src="ticketEvent.towerEvent.coverImg" :alt="ticketEvent.towerEvent.name" class="cover-img ms-5">
+                <router-link :to="{ name: 'Event Details', params: { eventId: ticketEvent.eventId } }">
+                  <img :src="ticketEvent.towerEvent.coverImg" :alt="ticketEvent.towerEvent.name" class="cover-img ms-5">
+                </router-link>
                 <div>
                   <small class="ms-5">{{ ticketEvent.towerEvent.name }}</small>
                   <small @click="deleteTicket(ticketEvent.id)" role="button"
