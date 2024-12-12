@@ -4,16 +4,20 @@ import { Ticket } from "@/models/Ticket.js"
 import { AppState } from "@/AppState.js"
 
 class TicketsService {
+  async deleteTicket(ticketId) {
+    const response = await api.delete(`api/tickets/${ticketId}`)
+    logger.log('deleted ticket', response.data)
+    const ticketIndex = AppState.ticketEvents.findIndex(ticket => ticket.id == ticketId)
+    AppState.ticketEvents.splice(ticketIndex, 1)
+  }
   async getMyTicketEvents() {
     const response = await api.get('account/tickets')
-    logger.log('got my ticket events', response.data)
     const tickets = response.data.map(ticketPojo => new Ticket(ticketPojo))
     AppState.ticketEvents = tickets
   }
 
   async getTicketProfileByEventId(eventId) {
     const response = await api.get(`api/events/${eventId}/tickets`)
-    logger.log('got ticket profiles', response.data)
     const ticket = response.data.map(ticketPojo => new Ticket(ticketPojo))
     AppState.ticketProfiles = ticket
 

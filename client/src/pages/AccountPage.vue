@@ -21,6 +21,18 @@ async function getMyTicketEvents() {
   }
 }
 
+async function deleteTicket(ticketId) {
+  try {
+    const yes = await Pop.confirm('Are you sure you want to unattend this event?')
+    if (!yes) return
+    await ticketsService.deleteTicket(ticketId)
+  }
+  catch (error) {
+    Pop.meow(error);
+    logger.error('[DELETING TICKET]', error)
+  }
+}
+
 </script>
 
 <template>
@@ -49,7 +61,8 @@ async function getMyTicketEvents() {
                 <img :src="ticketEvent.towerEvent.coverImg" :alt="ticketEvent.towerEvent.name" class="cover-img ms-5">
                 <div>
                   <small class="ms-5">{{ ticketEvent.towerEvent.name }}</small>
-                  <small class="bg-info rounded ms-2 px-2">Unattend</small>
+                  <small @click="deleteTicket(ticketEvent.id)" role="button"
+                    class="bg-info rounded ms-2 px-2">Unattend</small>
                 </div>
               </div>
               <div>
