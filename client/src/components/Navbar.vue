@@ -17,7 +17,7 @@ onMounted(() => {
   <nav class="navbar navbar-expand-sm bg-page px-3">
     <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
       <div class="fs-2 text-primary">
-        <b><i class="mdi mdi-radio-tower"></i></b>
+        <b><i class="mdi mdi-radio-tower mdi-spin"></i></b>
         <span class="ms-2">Tower</span>
       </div>
     </router-link>

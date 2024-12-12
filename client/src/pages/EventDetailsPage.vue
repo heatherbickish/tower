@@ -83,8 +83,8 @@ async function createTicket() {
             </div>
             <div class="text-center">
               <span v-if="towerEvent.capacity - towerEvent.ticketCount == 0"
-                title="`You have purchased a ticket for ${towerEvent.name}`"
-                class="px-2 rounded bg-primary">Attending</span>
+                title="`You have purchased a ticket for ${towerEvent.name}`" class="px-2 rounded bg-success">Sold
+                Out</span>
             </div>
           </div>
         </div>
@@ -123,7 +123,9 @@ async function createTicket() {
             <small>Grab a ticket!</small>
           </div>
           <div class="text-center mt-3">
-            <button @click="createTicket()" :disabled="towerEvent.isCanceled" class="btn btn-primary">Attend</button>
+            <button @click="createTicket()"
+              :disabled="towerEvent.isCanceled || towerEvent.ticketCount == towerEvent.capacity"
+              class="btn btn-primary">Attend</button>
           </div>
           <div class="text-end mt-2">
             <p>{{ towerEvent.capacity - towerEvent.ticketCount }} spots left</p>
