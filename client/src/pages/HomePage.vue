@@ -17,7 +17,7 @@ const activeFilterType = ref('all')
 
 const types = [
   { name: 'all', icon: 'mdi mdi-all-inclusive text-success' },
-  { name: 'concert', icon: 'mdi mdi-guitar-electric text-purple' },
+  { name: 'concert', icon: 'mdi mdi-guitar-electric text-warning' },
   { name: 'convention', icon: 'mdi mdi-account-group text-secondary' },
   { name: 'sport', icon: 'mdi mdi-soccer text-primary' },
   { name: 'digital', icon: 'mdi mdi-television-shimmer text-danger' }
@@ -39,6 +39,7 @@ async function getEvents() {
 </script>
 
 <template>
+  <!-- SECTION hero img -->
   <section class="container-fluid">
     <div class="row hero">
       <div class="col-md-6">
@@ -76,6 +77,8 @@ async function getEvents() {
       </div>
     </div>
   </section>
+
+  <!-- SECTION catagories -->
   <section class="container">
     <div class="row">
       <div class="col-12">
