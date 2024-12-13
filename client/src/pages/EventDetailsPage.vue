@@ -83,7 +83,7 @@ async function getEventById() {
 
 async function cancelEvent() {
   try {
-    const yes = await Pop.confirm(`Are you sure want to cancel ${towerEvent.value.name} event?`, "It's a pretty cool event", "Yes I am sure!")
+    const yes = await Pop.confirm(`Are you sure that you want to ${towerEvent.value.isCanceled ? 'uncancel' : 'cancel'} the ${towerEvent.value.name} event?`, "It's a pretty cool event", "Yes I am sure!")
     if (!yes) return
     const eventId = route.params.eventId
     await towerEventsService.cancelEvent(eventId)
@@ -115,20 +115,30 @@ async function createTicket() {
         <div class="col-md-10">
           <div :style="{ backgroundImage: `url(${towerEvent.coverImg})` }" class="mt-3 ">
             <img :src="towerEvent.coverImg" alt="" class="hero">
-            <div class="text-end ">
-              <span v-if="towerEvent.isCanceled" title="`${towerEvent.name} has been cancelled`"
-                class="px-2 rounded bg-danger">Is Cancelled</span>
-            </div>
-            <div class="text-start">
-              <span v-if="hasTickets" title="`You have purchased a ticket for ${towerEvent.name}`"
-                class="px-2 rounded bg-primary">Attending</span>
-            </div>
-            <div class="text-center">
-              <span v-if="towerEvent.capacity - towerEvent.ticketCount == 0"
-                title="`You have purchased a ticket for ${towerEvent.name}`" class="px-2 rounded bg-success">Sold
-                Out</span>
-            </div>
           </div>
+        </div>
+      </div>
+      <div class="row mt-2 text-center">
+        <div class="col-md-4">
+          <div>
+            <span v-if="towerEvent.capacity - towerEvent.ticketCount == 0"
+              title="You have purchased a ticket for this event" class="px-2 rounded bg-success">Sold
+              Out</span>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div>
+            <span v-if="towerEvent.isCanceled" title="This event has been cancelled" class="px-2 rounded bg-danger">Is
+              Cancelled</span>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div>
+            <span v-if="hasTickets" title="You have purchased a ticket for this event"
+              class="px-2 rounded bg-primary">Attending</span>
+          </div>
+        </div>
+        <div>
         </div>
       </div>
     </section>
@@ -142,8 +152,8 @@ async function createTicket() {
             <span class="bg-info rounded-pill px-3">{{ towerEvent.type }}</span>
           </div>
           <div class="text-center mb-3">
-            <button v-if="towerEvent.creatorId == account?.id" @click="cancelEvent()" class="btn btn-danger">Cancel
-              Event</button>
+            <button v-if="towerEvent.creatorId == account?.id" @click="cancelEvent()" class="btn btn-danger"
+              title="Cancel Event"> {{ towerEvent.isCanceled ? 'Uncancel' : 'Cancel' }} Event</button>
           </div>
           <div class="ms-5 px-5">
             <p>{{ towerEvent.description }}</p>
@@ -166,10 +176,10 @@ async function createTicket() {
           </div>
           <div class="text-center mt-3">
             <button @click="createTicket()"
-              :disabled="towerEvent.isCanceled || towerEvent.ticketCount == towerEvent.capacity"
-              class="btn btn-primary">Attend</button>
+              :disabled="towerEvent.isCanceled || towerEvent.ticketCount == towerEvent.capacity" class="btn btn-primary"
+              title="Attend this event">Attend</button>
           </div>
-          <div class="text-end mt-2">
+          <div class="text-md-end mt-2 ">
             <p>{{ towerEvent.capacity - towerEvent.ticketCount }} spots left</p>
           </div>
           <div class="mt-4">
@@ -196,7 +206,7 @@ async function createTicket() {
                     required></textarea>
                 </div>
                 <div class="text-end">
-                  <button class="btn btn-success">Post Comment</button>
+                  <button class="btn btn-success" title="Post comment">Post Comment</button>
                 </div>
               </form>
             </div>
@@ -204,9 +214,9 @@ async function createTicket() {
               <img :src="comment.creator.picture" :alt="comment.creator.name" class="creator-img m-2">
               <span>{{ comment.creator.name }}</span>
               <p class="ms-3">{{ comment.body }}</p>
-              <div class="text-end m-2">
+              <div class="text-end m-2 ">
                 <button @click="deleteComment(comment.id)" v-if="comment.creatorId == account?.id"
-                  class="btn btn-danger">Delete Post</button>
+                  class="btn btn-danger mb-2" title="Delete comment">Delete Comment</button>
               </div>
             </div>
           </div>

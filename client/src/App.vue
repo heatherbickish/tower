@@ -19,8 +19,9 @@ import ModalWrapper from "./components/ModalWrapper.vue";
 
 <style lang="scss">
 @import '@/assets/scss/main.scss';
+@import url('https://fonts.googleapis.com/css2?family=Faculty+Glyphic&display=swap');
 
-:root {
-  --main-height: calc(100vh - 32px - 64px);
+body {
+  font-family: "Faculty Glyphic", sans-serif;
 }
 </style>

@@ -42,7 +42,7 @@ async function getEvents() {
   <section class="container-fluid">
     <div class="row hero">
       <div class="col-md-6">
-        <div class="d-flex justify-content-end flex-column flex-end text-light p-4 ms-4 lh-2">
+        <div class="d-flex justify-content-end flex-column flex-end text-light p-4 ms-4 lh-2 text">
           <h3>Event management for people, by people</h3>
           <p>Whatever your interests, from hiking and reading to networking and skill sharing, there are thousands of
             people who share it on Tower Events are happening every day-log in to join the fun.</p>
@@ -67,7 +67,8 @@ async function getEvents() {
         </div>
       </div>
       <div v-if="account" class="col-md-4 bg-light">
-        <div class="p-3" role="button" type="submit" data-bs-toggle="modal" data-bs-target="#eventModal">
+        <div class="p-3" role="button" type="submit" title="Create event" data-bs-toggle="modal"
+          data-bs-target="#eventModal">
           <i class="mdi mdi-plus text-success fs-4 me-3"></i>
           <h5>Start an event to invite your friends</h5>
           <small>Create your own Tower event, and draw from a community of millions</small>
@@ -83,7 +84,7 @@ async function getEvents() {
         </div>
         <div class="row justify-content-around">
           <div v-for="type in types" :key="'filter-' + type.name" class="col-md-2 bg-light text-capitalize">
-            <div @click="activeFilterType = type.name" role="button" class="text-center py-2">
+            <div @click="activeFilterType = type.name" role="button" class="text-center py-2" :title="type.name">
               <i :class="type.icon"></i>
               <h6>{{ type.name }}</h6>
             </div>
@@ -115,6 +116,9 @@ async function getEvents() {
   width: auto;
   background-size: cover;
   background-position: center;
+}
 
+.text {
+  text-shadow: 1px 2px black;
 }
 </style>

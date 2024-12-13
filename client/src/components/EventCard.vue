@@ -10,7 +10,8 @@ defineProps({
 <template>
   <div class="mx-3">
     <router-link :to="{ name: 'Event Details', params: { eventId: towerEvent.id } }">
-      <img :src="towerEvent.coverImg" alt="" class="cover-img">
+      <img :src="towerEvent.coverImg" :alt="towerEvent.name" class="cover-img"
+        :title="towerEvent.startDate.toLocaleDateString()">
     </router-link>
   </div>
   <div class="ms-3 mb-4 ">

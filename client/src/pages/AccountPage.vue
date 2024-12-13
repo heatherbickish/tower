@@ -60,12 +60,13 @@ async function deleteTicket(ticketId) {
               <div class="m-3">
 
                 <router-link :to="{ name: 'Event Details', params: { eventId: ticketEvent.eventId } }">
-                  <img :src="ticketEvent.towerEvent.coverImg" :alt="ticketEvent.towerEvent.name" class="cover-img ms-5">
+                  <img :src="ticketEvent.towerEvent.coverImg" :alt="ticketEvent.towerEvent.name" class="cover-img ms-5"
+                    :title="ticketEvent.towerEvent.name">
                 </router-link>
                 <div>
                   <small class="ms-5">{{ ticketEvent.towerEvent.name }}</small>
-                  <small @click="deleteTicket(ticketEvent.id)" role="button"
-                    class="bg-info rounded ms-2 px-2">Unattend</small>
+                  <small @click="deleteTicket(ticketEvent.id)" role="button" class="bg-info rounded ms-2 px-2"
+                    title="Unattend event">Unattend</small>
                 </div>
               </div>
               <div>
