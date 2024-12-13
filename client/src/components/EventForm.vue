@@ -50,6 +50,10 @@ async function createEvent() {
     <h4>Create new Event</h4>
   </div>
   <form @submit.prevent="createEvent()">
+    <div v-if="editableEventData.coverImg" class="mb-2">
+      <img :src="editableEventData.coverImg" alt="Your picture" class="w-100">
+      <p>Image preview</p>
+    </div>
     <div class="form-floating mb-2">
       <input v-model="editableEventData.name" type="text" class="form-control" id="name" placeholder="Event Name"
         minlength="3" maxlength="50" required>
