@@ -4,9 +4,14 @@ import { TowerComment } from "@/models/TowerComment.js"
 import { AppState } from "@/AppState.js"
 
 class TowerCommentsService {
+  async deleteComment(commentId) {
+    const response = await api.delete(`api/comments/${commentId}`)
+    logger.log('deleted comment', response.data)
+    const commentIndex = AppState.towerComments.findIndex(comment => comment.id == commentId)
+    AppState.towerComments.splice(commentIndex, 1)
+  }
   async createComment(commentData) {
     const response = await api.post('api/comments', commentData)
-    logger.log('created comment', response.data)
     const comment = new TowerComment(response.data)
     AppState.towerComments.push(comment)
   }

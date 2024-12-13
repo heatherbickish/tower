@@ -37,6 +37,18 @@ async function createComment() {
   }
 }
 
+async function deleteComment(commentId) {
+  try {
+    const yes = await Pop.confirm('Are you sure you want to delete this comment?')
+    if (!yes) return
+    await towerCommentsService.deleteComment(commentId)
+  }
+  catch (error) {
+    Pop.meow(error);
+    logger.error('[DELETING COMMENT]', error)
+  }
+}
+
 async function getCommentByEventId() {
   try {
     const eventId = route.params.eventId
@@ -193,7 +205,8 @@ async function createTicket() {
               <span>{{ comment.creator.name }}</span>
               <p class="ms-3">{{ comment.body }}</p>
               <div class="text-end m-2">
-                <button v-if="comment.creatorId == account?.id" class="btn btn-danger">Delete Post</button>
+                <button @click="deleteComment(comment.id)" v-if="comment.creatorId == account?.id"
+                  class="btn btn-danger">Delete Post</button>
               </div>
             </div>
           </div>
