@@ -175,7 +175,7 @@ async function createTicket() {
             <small>Grab a ticket!</small>
           </div>
           <div class="text-center mt-3">
-            <button @click="createTicket()"
+            <button v-if="account" @click="createTicket()"
               :disabled="towerEvent.isCanceled || towerEvent.ticketCount == towerEvent.capacity" class="btn btn-primary"
               title="Attend this event">Attend</button>
           </div>
