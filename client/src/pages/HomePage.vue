@@ -41,9 +41,9 @@ async function getEvents() {
 <template>
   <!-- SECTION hero img -->
   <section class="container-fluid">
-    <div class="row hero">
+    <div class="row hero flex-column flex-end">
       <div class="col-md-6">
-        <div class="d-flex justify-content-end flex-column flex-end text-light p-4 ms-4 lh-2 text">
+        <div class="text-light text p-5">
           <h3>Event management for people, by people</h3>
           <p>Whatever your interests, from hiking and reading to networking and skill sharing, there are thousands of
             people who share it on Tower Events are happening every day-log in to join the fun.</p>
@@ -115,7 +115,7 @@ async function getEvents() {
 <style scoped lang="scss">
 .hero {
   background-image: url(https://images.unsplash.com/photo-1467810563316-b5476525c0f9?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);
-  height: 500px;
+  height: 600px;
   width: auto;
   background-size: cover;
   background-position: center;
@@ -123,5 +123,6 @@ async function getEvents() {
 
 .text {
   text-shadow: 1px 2px black;
+  line-height: 25px;
 }
 </style>

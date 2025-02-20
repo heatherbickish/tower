@@ -112,7 +112,7 @@ async function createTicket() {
   <div v-if="towerEvent">
     <section class="container">
       <div class="row justify-content-center">
-        <div class="col-md-10">
+        <div class="col-md-11">
           <div :style="{ backgroundImage: `url(${towerEvent.coverImg})` }" class="mt-3 ">
             <img :src="towerEvent.coverImg" alt="" class="hero">
           </div>
@@ -145,23 +145,23 @@ async function createTicket() {
 
     <!-- SECTION event details -->
     <section class="container">
-      <div class="row justify-content-between">
-        <div class="col-md-7">
+      <div class="row justify-content-center">
+        <div class="col-md-6">
           <div class=" d-flex justify-content-around align-items-center m-5">
-            <span class="fs-3 ms-4">{{ towerEvent.name }}</span>
+            <span class="fs-3">{{ towerEvent.name }}</span>
             <span class="bg-info rounded-pill px-3">{{ towerEvent.type }}</span>
           </div>
           <div class="text-center mb-3">
             <button v-if="towerEvent.creatorId == account?.id" @click="cancelEvent()" class="btn btn-danger"
               title="Cancel Event"> {{ towerEvent.isCanceled ? 'Uncancel' : 'Cancel' }} Event</button>
           </div>
-          <div class="ms-5 px-5">
+          <div class="px-5">
             <p>{{ towerEvent.description }}</p>
             <h6>Date and Time</h6>
             <i class="mdi mdi-calendar-clock-outline text-primary fs-5 me-2"></i>
             <span>Starts Tuesday, {{ towerEvent.startDate.toLocaleDateString() }}</span>
           </div>
-          <div class="ms-5 mt-3 px-5">
+          <div class="mt-3 px-5">
             <h6>Location</h6>
             <i class="mdi mdi-map-marker text-primary fs-5 me-2"></i>
             <span>{{ towerEvent.location }}</span>
@@ -169,7 +169,7 @@ async function createTicket() {
         </div>
 
         <!-- SECTION tickets and attendees -->
-        <div class="col-md-2 bg-light m-5">
+        <div class="col-md-3 bg-light m-5">
           <div class="text-center mt-3">
             <h6>Interested in going?</h6>
             <small>Grab a ticket!</small>
@@ -179,10 +179,10 @@ async function createTicket() {
               :disabled="towerEvent.isCanceled || towerEvent.ticketCount == towerEvent.capacity" class="btn btn-primary"
               title="Attend this event">Attend</button>
           </div>
-          <div class="text-md-end mt-2 ">
+          <div class="text-center text-md-end mt-2 ">
             <p>{{ towerEvent.capacity - towerEvent.ticketCount }} spots left</p>
           </div>
-          <div class="mt-4">
+          <div class="mt-4 text-center text-md-start">
             <h6>Attendees</h6>
             <div v-for="ticketProfile in ticketProfiles" :key="ticketProfile.id">
               <img :src="ticketProfile.profile.picture" :alt="ticketProfile.profile.name" class="creator-img mb-2">
@@ -194,10 +194,10 @@ async function createTicket() {
 
       <!-- SECTION comments -->
       <div class="ms-5 mt-5 px-5">
-        <h6 class="mb-5">See what folks are saying...</h6>
+        <h6 class="mb-5 fw-bold">See what folks are saying...</h6>
         <div class="row">
           <div class="col-md-7 bg-light">
-            <div class="text-end mt-3 p-3">
+            <div class="text-md-end text-center mt-3 p-3">
               <p class="text-success">Join the conversation</p>
               <form @submit.prevent="createComment()">
                 <div class="mb-3">

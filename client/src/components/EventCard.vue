@@ -17,6 +17,7 @@ defineProps({
   <div class="ms-3 mb-4 ">
     <p class="mb-0">{{ towerEvent.name }}</p>
     <small>{{ towerEvent.location }}</small>
+    <span>{{ towerEvent.ticketCount }}</span>
   </div>
 </template>
 
