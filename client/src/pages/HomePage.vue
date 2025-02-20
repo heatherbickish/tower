@@ -42,11 +42,12 @@ async function getEvents() {
   <!-- SECTION hero img -->
   <section class="container-fluid">
     <div class="row hero flex-column flex-end">
-      <div class="col-md-6">
-        <div class="text-light text p-5">
-          <h3>Event management for people, by people</h3>
-          <p>Whatever your interests, from hiking and reading to networking and skill sharing, there are thousands of
-            people who share it on Tower Events are happening every day-log in to join the fun.</p>
+      <div class="col-md-7">
+        <div class="text-light text p-5 m-5">
+          <h3 class="mb-4">Event management for people, <br> by people</h3>
+          <p>Whatever your interests, from hiking and reading to networking and skill <br> sharing, there are thousands
+            of
+            people who share it on Tower Events <br> are happening every day-log in to join the fun.</p>
         </div>
       </div>
     </div>
@@ -123,6 +124,6 @@ async function getEvents() {
 
 .text {
   text-shadow: 1px 2px black;
-  line-height: 25px;
+  line-height: 30px;
 }
 </style>

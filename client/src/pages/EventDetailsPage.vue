@@ -111,9 +111,9 @@ async function createTicket() {
   <!-- SECTION event img -->
   <div v-if="towerEvent">
     <section class="container">
-      <div class="row justify-content-center">
+      <div class="row justify-content-center mt-5">
         <div class="col-md-11">
-          <div :style="{ backgroundImage: `url(${towerEvent.coverImg})` }" class="mt-3 ">
+          <div class="mt-3">
             <img :src="towerEvent.coverImg" alt="" class="hero">
           </div>
         </div>
@@ -145,10 +145,10 @@ async function createTicket() {
 
     <!-- SECTION event details -->
     <section class="container">
-      <div class="row justify-content-center">
-        <div class="col-md-6">
-          <div class=" d-flex justify-content-around align-items-center m-5">
-            <span class="fs-3">{{ towerEvent.name }}</span>
+      <div class="row justify-content-around">
+        <div class="col-md-6 mt-3">
+          <div class=" d-flex align-items-center m-5">
+            <h3 class="fs-3">{{ towerEvent.name }}</h3>
             <span class="bg-info rounded-pill px-3">{{ towerEvent.type }}</span>
           </div>
           <div class="text-center mb-3">
@@ -194,8 +194,8 @@ async function createTicket() {
 
       <!-- SECTION comments -->
       <div class="ms-5 mt-5 px-5">
-        <h6 class="mb-5 fw-bold">See what folks are saying...</h6>
-        <div class="row">
+        <h6 class="mb-5 ms-3 fw-bold">See what folks are saying...</h6>
+        <div class="row justify-content flex-start">
           <div class="col-md-7 bg-light">
             <div class="text-md-end text-center mt-3 p-3">
               <p class="text-success">Join the conversation</p>
@@ -232,8 +232,9 @@ async function createTicket() {
 .hero {
   height: 400px;
   width: 100%;
-  border-radius: 15px;
+  border-radius: 20px;
   object-fit: cover;
+  object-position: center;
 }
 
 .creator-img {

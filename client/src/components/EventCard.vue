@@ -14,10 +14,11 @@ defineProps({
         :title="towerEvent.startDate.toLocaleDateString()">
     </router-link>
   </div>
-  <div class="ms-3 mb-4 ">
+  <div class="ms-3 mb-4 mt-2">
     <p class="mb-0">{{ towerEvent.name }}</p>
-    <small>{{ towerEvent.location }}</small>
-    <span>{{ towerEvent.ticketCount }}</span>
+    <p class="mb-0 text-success">Hosted by {{ towerEvent.creator.name }}</p>
+    <p class="mb-0">{{ towerEvent.location }}</p>
+    <p class="mb-0">{{ towerEvent.ticketCount }} attending</p>
   </div>
 </template>
 
@@ -27,6 +28,6 @@ defineProps({
   height: 25dvh;
   width: 100%;
   object-fit: cover;
-  border-radius: 15px;
+  border-radius: 6px;
 }
 </style>
